@@ -1,10 +1,5 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## About me
-
-I am the author of the visual editor for Bootstrap -
-My previous project is a Bootstrap-based component library - coreui.io
-
 ## My comments
 
 - pages for all of posts are generated with SSG
@@ -24,6 +19,11 @@ return posts by title (with pagination)
 
 /api/posts/search/<category-number or -1>/<title-text> <?page=page-number-from-1>
 return posts by category and title (with pagination)
+
+## About me
+
+I am the author of the visual editor for Bootstrap - http://cv.thomasnemo.com/OceanEditor.dmg
+My previous project - a Bootstrap-based component library - http://coreui.io
 
 ## Getting Started
 
