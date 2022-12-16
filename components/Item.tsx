@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface ItemProps {
   children: React.ReactNode;
   category: string;
   title: string;
-  imageUrl?: string;
+  imageUrl: string;
   author: string;
   authorImageUrl: string;
   date: string;
@@ -26,8 +27,8 @@ export default function Item({
   return (
     <Link href={`posts/${slug}`}>
       <div className="drop-shadow-xl bg-white w-[250px] grow-0 shrink-0 rounded hover:translate-y-1">
-        <div className="h-[188px] bg-[#999] overflow-hidden rounded-t">
-          <img src={imageUrl} width="100%" />
+        <div className="h-[188px] bg-[#999] overflow-hidden rounded-t relative">
+          <Image src={imageUrl} fill alt="post image" />
         </div>
         <div className="h-[150px] p-[15px] overflow-scroll">
           <div className="pb-[5px] text-[#00aaff]">{category}</div>
@@ -37,10 +38,14 @@ export default function Item({
           <p>{children}</p>
         </div>
         <div className="p-[15px] flex gap-x-[10px]">
-          <img
-            className="rounded-full bg-[#999] w-[25px] h-[25px]"
-            src={authorImageUrl}
-          />
+          <div className="relative w-[25px] h-[25px]">
+            <Image
+              className="rounded-full bg-[#999]"
+              src={authorImageUrl}
+              fill
+              alt="author picture"
+            />
+          </div>
           <div className="text-[9px]">
             <b>{author}</b>
             <br />
