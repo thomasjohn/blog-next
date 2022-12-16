@@ -24,7 +24,7 @@ export default function ItemFull({
   return (
     <div className="drop-shadow-xl bg-white w-[80%] rounded">
       <div className="bg-[#222] h-[450px] overflow-hidden rounded-t relative">
-        <Image src={imageUrl} fill alt="post image" objectFit="cover" />
+        <Image src={imageUrl} fill alt="post image" />
       </div>
       <div className="h-[300px] p-[15px] overflow-scroll">
         <div className="pb-[5px] text-[#00aaff] text-sm">{category}</div>
