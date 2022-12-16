@@ -1,5 +1,30 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## About me
+
+I am the author of the visual editor for Bootstrap -
+My previous project is a Bootstrap-based component library - coreui.io
+
+## My comments
+
+- pages for all of posts are generated with SSG
+- for the home page initial 3 posts are generated with SSG (order is same as via API)
+- API returns results in json format, the index is rendered on the client, while the links lead to previously rendered pages
+
+## API
+
+/api/posts <?page=page-number-from-1>
+return all posts (with pagination)
+
+/api/posts/category/<category-number> <?page=page-number-from-1>
+return posts by category (with pagination)
+
+/api/posts/title/<title-text> <?page=page-number-from-1>
+return posts by title (with pagination)
+
+/api/posts/search/<category-number or -1>/<title-text> <?page=page-number-from-1>
+return posts by category and title (with pagination)
+
 ## Getting Started
 
 First, run the development server:
