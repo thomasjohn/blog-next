@@ -25,11 +25,11 @@ export default function ItemFull({
         <img src={imageUrl} width="100%" />
       </div>
       <div className="h-[300px] p-[15px] overflow-scroll">
-        <div className="pb-[5px] text-[#00aaff]">{category}</div>
+        <div className="pb-[5px] text-[#00aaff] text-sm">{category}</div>
         <div className="pb-[5px]">
           <h4>{title}</h4>
         </div>
-        <p>{children}</p>
+        <p className="text-sm">{children}</p>
       </div>
       <div className="p-[15px] flex gap-x-[10px]">
         <img
