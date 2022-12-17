@@ -29,7 +29,7 @@ export default function Item({
       <div className="drop-shadow-xl bg-white w-[250px] grow-0 shrink-0 rounded hover:translate-y-1">
         <div className="h-[188px] bg-[#999] overflow-hidden rounded-t relative">
           <Image
-            className="object-cover"
+            className="object-cover rounded-t"
             src={imageUrl}
             fill
             sizes="33vw"
