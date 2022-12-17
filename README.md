@@ -4,20 +4,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - pages for all of posts are generated with SSG
 - for the home page initial 3 posts are generated with SSG (order is same as via API)
+- SSR version of index - path: '/ssr'
 - API returns results in json format, the index is rendered on the client, while the links lead to previously rendered pages
 
 ## API
 
 /api/posts <?page=page-number-from-1>
+
 return all posts (with pagination)
 
 /api/posts/category/ :category-id <?page=page-number-from-1>
+
 return posts by category (with pagination)
 
 /api/posts/title/ :title-text <?page=page-number-from-1>
+
 return posts by title (with pagination)
 
 /api/posts/search/ :category-id-or--1 / :title-text <?page=page-number-from-1>
+
 return posts by category and title (with pagination)
 
 ## About me
