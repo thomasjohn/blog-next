@@ -28,7 +28,7 @@ export default function Post(props: PostProps) {
       <main className="p-[20px]">
         {/* additional navigation */}
         <nav className="text-center py-[7px] mb-[20px] bg-white">
-          <Link href="/">Back</Link>
+          <Link href="/">Index</Link> | <Link href="/ssr">Index SSR</Link>
         </nav>
         {/* END additional navigation */}
 

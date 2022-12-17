@@ -1,8 +1,10 @@
 import Head from "next/head";
-import { useEffect, useState, ChangeEvent, useCallback, useRef } from "react";
-import Item from "../components/Item";
-import { DataType } from "../lib/types";
-import getData from "../lib/getData";
+import { useRouter } from "next/router";
+import { useEffect, useState, useRef, useCallback, ChangeEvent } from "react";
+import Item from "../../components/Item";
+import { DataType } from "../../lib/types";
+import getDataByQuery from "../../lib/getDataByQuery";
+import type { NextApiRequest } from "next";
 import Link from "next/link";
 
 // types
@@ -18,26 +20,14 @@ const TXT_SUBTITLE =
 
 // main component
 export default function Home({ data: dataProp }: HomeProps) {
-  const [data, setData] = useState(dataProp); // set static rendering data
-
   const [filterCategory, setFilterCategory] = useState("-1"); // -1 for all categories
   const [filterTitle, setFilterTitle] = useState("");
-  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // page number from 1
   const firstRender = useRef(true);
+  const router = useRouter();
 
   const onGetData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `./api/posts/search/${filterCategory}/${filterTitle}?page=${page}`
-      );
-      const data = await res.json();
-      setData(data);
-      setLoading(false);
-    } catch (err) {
-      console.log("onGetData", err);
-    }
+    router.push(`/ssr/${filterCategory}/${filterTitle}?page=${page}`);
   }, [filterCategory, filterTitle, page]);
 
   // effects
@@ -46,9 +36,8 @@ export default function Home({ data: dataProp }: HomeProps) {
       firstRender.current = false;
       return;
     }
-
     onGetData();
-  }, [filterCategory, filterTitle, page, firstRender, onGetData]);
+  }, [filterCategory, filterTitle, page, onGetData]);
 
   // events
 
@@ -77,11 +66,11 @@ export default function Home({ data: dataProp }: HomeProps) {
 
       <main className="p-[20px]">
         {/* additional navigation */}
-        <b>Index</b> | <Link href="/ssr">Index SSR</Link>
+        <Link href="/">Index</Link> | <b>Index SSR</b>
         <nav className="text-center py-[7px] bg-white">
           <select onChange={onCategoryChange}>
             <option value={-1}>All categories</option>
-            {data?.categories.map((category) => (
+            {dataProp?.categories.map((category) => (
               <option value={category.id} key={`key-${category.id}`}>
                 {category.name}
               </option>
@@ -97,47 +86,52 @@ export default function Home({ data: dataProp }: HomeProps) {
           <h1>{TXT_TITLE}</h1>
           <p className="text-center">{TXT_SUBTITLE}</p>
         </div>
-        {!loading ? (
-          <div className="flex justify-center gap-[30px] flex-wrap">
-            {data?.posts.map((post, idx) => {
-              return (
-                <Item
-                  category={post.categories
-                    .map((categoryId) => {
-                      return (
-                        data.categories.find(
-                          (category) => category.id === categoryId
-                        )?.name ?? ""
-                      );
-                    })
-                    .join(" ")}
-                  title={post.title}
-                  readTime={5}
-                  date="Today"
-                  imageUrl={post.imageUrl}
-                  author="Author Name"
-                  authorImageUrl=""
-                  key={`key-${idx}`}
-                  slug={post.slug}
-                >
-                  {post.excerpt}
-                </Item>
-              );
-            })}
-          </div>
-        ) : null}
+        <div className="flex justify-center gap-[30px] flex-wrap">
+          {dataProp?.posts.map((post, idx) => {
+            return (
+              <Item
+                category={post.categories
+                  .map((categoryId) => {
+                    return (
+                      dataProp.categories.find(
+                        (category) => category.id === categoryId
+                      )?.name ?? ""
+                    );
+                  })
+                  .join(" ")}
+                title={post.title}
+                readTime={5}
+                date="Today"
+                imageUrl={post.imageUrl}
+                author="Author Name"
+                authorImageUrl=""
+                key={`key-${idx}`}
+                slug={post.slug}
+              >
+                {post.excerpt}
+              </Item>
+            );
+          })}
+        </div>
       </main>
     </div>
   );
 }
 
-// called at build time
-export async function getStaticProps() {
-  const blog = getData();
+// ssr
+export async function getServerSideProps({
+  query,
+}: {
+  query: NextApiRequest["query"];
+}) {
+  const data = getDataByQuery(query);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
-    props: {
-      data: { posts: blog.posts.slice(0, 3), categories: blog.categories },
-    },
+    props: { data },
   };
 }

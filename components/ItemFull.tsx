@@ -34,13 +34,10 @@ export default function ItemFull({
         <p className="text-sm">{children}</p>
       </div>
       <div className="p-[15px] flex gap-x-[10px]">
-        <div className="relative w-[25px] h-[25px]">
-          <Image
-            className="rounded-full bg-[#999]"
-            src={authorImageUrl}
-            fill
-            alt="author picture"
-          />
+        <div className="relative w-[25px] h-[25px] rounded-full bg-[#999] overflow-hidden">
+          {authorImageUrl ? (
+            <Image src={authorImageUrl} fill alt="author picture" />
+          ) : null}
         </div>
         <div className="text-[9px]">
           <b>{author}</b>

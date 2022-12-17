@@ -25,10 +25,16 @@ export default function Item({
   slug,
 }: ItemProps) {
   return (
-    <Link href={`posts/${slug}`}>
+    <Link href={`/posts/${slug}`}>
       <div className="drop-shadow-xl bg-white w-[250px] grow-0 shrink-0 rounded hover:translate-y-1">
         <div className="h-[188px] bg-[#999] overflow-hidden rounded-t relative">
-          <Image src={imageUrl} fill alt="post image" />
+          <Image
+            className="object-cover"
+            src={imageUrl}
+            fill
+            sizes="33vw"
+            alt="post image"
+          />
         </div>
         <div className="h-[150px] p-[15px] overflow-scroll">
           <div className="pb-[5px] text-[#00aaff]">{category}</div>
@@ -38,13 +44,10 @@ export default function Item({
           <p>{children}</p>
         </div>
         <div className="p-[15px] flex gap-x-[10px]">
-          <div className="relative w-[25px] h-[25px]">
-            <Image
-              className="rounded-full bg-[#999]"
-              src={authorImageUrl}
-              fill
-              alt="author picture"
-            />
+          <div className="relative w-[25px] h-[25px] rounded-full bg-[#999] overflow-hidden">
+            {authorImageUrl ? (
+              <Image src={authorImageUrl} fill alt="author picture" />
+            ) : null}
           </div>
           <div className="text-[9px]">
             <b>{author}</b>
