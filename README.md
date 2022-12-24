@@ -23,7 +23,7 @@ return posts by category and title (with pagination)
 
 ## About me
 
-I am the author of the visual editor for Bootstrap - http://cv.thomasnemo.com/OceanEditor.dmg
+I am the author of the visual editor for Bootstrap.
 My previous project - a Bootstrap-based component library - http://coreui.io
 
 ## Getting Started
